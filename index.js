@@ -7,8 +7,11 @@ const server = http.createServer((req, res) => {
     } else if (pathName === '/product') {
         res.end('this is the PRODUCT');
     } else {
-        res.writeHead(404);
-        res.end('Page not found!');
+        res.writeHead(404, {
+            'Content-Type': 'text/html',
+            'nono': 'nono'
+        });
+        res.end('<h1>Page not founded!</h1>');
     }
 })
 server.listen(8000, '127.0.0.1', () => {
