@@ -13,6 +13,31 @@ fs.readFile(`${__dirname}/dev-data/data.json`) // this is better prctice
 
 > the dot is where the script is running, and __dirname is where the current file is located
 
+## JSON.parse
+
+> [JSON.parse MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse)
+
+The JSON.parse() method parses a JSON string, constructing the JavaScript value or object described by the string.
+
+```javascript
+var json = '{"result":true, "count":42}';
+obj = JSON.parse(json);
+
+console.log(obj.count);
+// expected output: 42
+
+console.log(obj.result);
+// expected output: true
+```
+
+## Header
+
+### Content-type
+
+1. text/html
+2. application/json
+3. multipart/form-data
+
 ## implement server with basic http code
 
 ```javascript
