@@ -6,6 +6,9 @@ const server = http.createServer((req, res) => {
         res.end('this is the OVERVIEW');
     } else if (pathName === '/product') {
         res.end('this is the PRODUCT');
+    } else {
+        res.writeHead(404);
+        res.end('Page not found!');
     }
 })
 server.listen(8000, '127.0.0.1', () => {
