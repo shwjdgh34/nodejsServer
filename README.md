@@ -2,6 +2,17 @@
 
 # TOC
 
+## Better practices
+
+1. __dirname
+
+```javascript
+fs.readFile('./dev-data/data.json')
+fs.readFile(`${__dirname}/dev-data/data.json`) // this is better prctice
+```
+
+> the dot is where the script is running, and __dirname is where the current file is located
+
 ## implement server with basic http code
 
 ```javascript
