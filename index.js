@@ -1,6 +1,6 @@
 const http = require('http');
 const fs = require('fs');
-
+const url = require('url');
 
 const replaceTemplate = (tmplt, product) => {
     let output = tmplt.replace(/{%PRODUCTNAME%}/g, product.productName);
@@ -11,7 +11,6 @@ const replaceTemplate = (tmplt, product) => {
     output = output.replace(/{%FROM%}/g, product.from);
     output = output.replace(/{%DESCRIPTION%}/g, product.description);
     output = output.replace(/{%ID%}/g, product.id);
-    //if (!product.organic) output = output.replace(/{%NOT_ORGANIC%}/g, 'not-organic');
     output = output.replace(/{%NOT_ORGANIC%}/g, product.organic ? '' : 'not-organic');
     return output;
 };
@@ -25,21 +24,31 @@ const tmpltCard = fs.readFileSync(`${__dirname}/templates/product_card.html`, 'u
 
 
 const server = http.createServer((req, res) => {
-    const pathName = req.url;
+
+    const { query, pathname } = url.parse(req.url, true);
+
     // Overview
-    if (pathName === '/' || pathName === '/overview') {
+    if (pathname === '/' || pathname === '/overview') {
         const cardsHtml = dataObj.map(el => replaceTemplate(tmpltCard, el)).join('');
         const output = tmpltOverview.replace(/{%PRODUCT_CARD%}/g, cardsHtml);
         res.writeHeader(200, { 'Content-Type': 'text/html' });
         res.end(output);
     }
     // Product
-    else if (pathName === '/product') {
-        res.writeHeader(200, { 'Content-Type': 'text/html' });
-        res.end(tmpltProduct);
+    else if (pathname === '/product') {
+        const product = dataObj[query.id];
+        if (product === undefined) {
+            res.writeHeader(200, { 'Content-Type': 'text/html' });
+            res.end('no product');
+        }
+        else {
+            const output = replaceTemplate(tmpltProduct, product);
+            res.writeHeader(200, { 'Content-Type': 'text/html' });
+            res.end(output);
+        }
     }
     // API 
-    else if (pathName === '/api') {
+    else if (pathname === '/api') {
         res.writeHeader(200, { 'Content-Type': 'application/json' });
         res.end(data);  // end method needs to send back a string not an object.  
     }
