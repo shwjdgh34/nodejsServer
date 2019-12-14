@@ -13,6 +13,25 @@ fs.readFile(`${__dirname}/dev-data/data.json`) // this is better prctice
 
 > the dot is where the script is running, and __dirname is where the current file is located
 
+2. g modifier
+
+```javascript
+module.exports = (tmplt, product) => {
+    let output = tmplt.replace(/{%PRODUCTNAME%}/g, product.productName);
+    output = output.replace(/{%IMAGE%}/g, product.image);
+    output = output.replace(/{%QUANTITY%}/g, product.quantity);
+    output = output.replace(/{%PRICE%}/g, product.price);
+    output = output.replace(/{%NUTRIENT%}/g, product.nutrients);
+    output = output.replace(/{%FROM%}/g, product.from);
+    output = output.replace(/{%DESCRIPTION%}/g, product.description);
+    output = output.replace(/{%ID%}/g, product.id);
+    output = output.replace(/{%NOT_ORGANIC%}/g, product.organic ? '' : 'not-organic');
+    return output;
+};
+```
+
+> [JS regExp g modifier MDN](https://www.w3schools.com/jsref/jsref_regexp_g.asp)
+
 ## JSON.parse
 
 > [JSON.parse MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse)
@@ -60,4 +79,13 @@ const server = http.createServer((req, res) => {
 server.listen(8000, '127.0.0.1', () => {
     console.log('listening to requests on port 8000');
 });
+```
+
+## NPM
+
+1. nodemon
+
+```shell
+$npm install nodemon --save-dev
+$npm i nodemon --global
 ```

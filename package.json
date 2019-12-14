@@ -1,0 +1,22 @@
+{
+  "name": "node-farm",
+  "version": "1.0.0",
+  "description": "Learning node.js",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shwjdgh34/nodejsServer.git"
+  },
+  "author": "Jeongho Noh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shwjdgh34/nodejsServer/issues"
+  },
+  "homepage": "https://github.com/shwjdgh34/nodejsServer#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
